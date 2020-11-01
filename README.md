@@ -4,7 +4,7 @@
 
 - [Introduction](#introduction)
 - [YOLO V3](#yolo-v3)
-- [Functions](#functions)
+- [Edge](#edge)
 
 
 ### Introduction
@@ -20,3 +20,15 @@ The YOLO V3 network structure is shown as follows.
 <div align=center><img src="images/yolov3.png" width = "500" height = "250"  /></div>
 
 Since deep learning requires a large number of training samples, the amount of data will directly affect the accuracy of face recognition. We use our WIDER FACE data set as a training set. WIDER FACE data set is a benchmack dataset of 32,203 pictures and 393,703 faces, taking into account such factors as face size, location and occlusion.
+
+### Edge
+Edge programs are written in Python. First, input relevant information through the edge interface, as shown in the figure below:
+
+
+<div align=center><img src="images/edge.png" width = "500" height = "250"  /></div>
+
+
+"location" means the place where the traffic is to be tested. "Threshold" means that if the number of detected people is less than the threshold, the data will not be reported to the cloud. If the number of people is greater than or equal to the threshold, it will be reported to the cloud. "Upload time interval" T means that each time interval T analyzes the images detected by the current camera. Time T is generally not appropriate to be set too large, otherwise the current flow of people cannot be timely understood. The "upload address" represents the cloud address. Target path represents the folder in which the captured images from the camera are temporarily stored.
+Edge of the process as shown in figure 8, first through the camera to detect traffic location to test the situation at this time, and then according to "upload time interval t," every time t to the time of the detected image capture, and survival to choose good folder, and then call the number recognition program images of intercepted number analysis, calculation of the number, the number of people at the same time will be compared with the threshold, if greater than or equal to the number of threshold value is calculated, it will test location, number, time three data uploaded to the cloud. If the number of people is less than the threshold, the data will not be uploaded to the cloud. Then proceed to the next round of analysis. Here is the flow chart.
+
+<div align=center><img src="images/flowchart.png" width = "500" height = "250"  /></div>
